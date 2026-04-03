@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy Birthday Janvi 🎀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0e0008;
+  --rose:#e8175d;
+  --blush:#ffc2d4;
+  --gold:#f0b429;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans',sans-serif;color:#fff;touch-action:manipulation}
+
+/* ── CANVAS BACKGROUND ── */
+#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* ── BLOBS ── */
+.blobs{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.15;animation:blobDrift 16s ease-in-out infinite alternate}
+.b1{width:500px;height:500px;background:radial-gradient(circle,#e8175d,transparent);top:-15%;left:-15%;animation-duration:18s}
+.b2{width:350px;height:350px;background:radial-gradient(circle,#f0b429,transparent);bottom:5%;right:-10%;animation-duration:14s;animation-delay:-6s}
+.b3{width:280px;height:280px;background:radial-gradient(circle,#ffc2d4,transparent);top:35%;left:55%;animation-duration:20s;animation-delay:-10s}
+@keyframes blobDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,50px) scale(1.2)}}
+
+.bg-grad{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 0% 0%,#380018 0%,transparent 70%),
+             radial-gradient(ellipse 60% 50% at 100% 100%,#1a000c 0%,transparent 70%)}
+
+/* ── MUSIC BAR ── */
+#musicBar{position:fixed;top:12px;right:12px;z-index:9999;background:rgba(14,0,8,.9);backdrop-filter:blur(16px);border:1px solid rgba(232,23,93,.35);border-radius:40px;padding:8px 14px;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity .6s}
+#musicBar.visible{opacity:1}
+#musicTitle{font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--blush);letter-spacing:.5px}
+.bars{display:flex;align-items:flex-end;gap:2px;height:16px}
+.bar{width:3px;background:var(--rose);border-radius:2px;animation:barA .8s ease-in-out infinite alternate}
+.bar:nth-child(1){animation-duration:.6s}
+.bar:nth-child(2){animation-delay:.1s;animation-duration:.8s}
+.bar:nth-child(3){animation-delay:.2s;animation-duration:.5s}
+.bar:nth-child(4){animation-delay:.3s;animation-duration:.9s}
+@keyframes barA{0%{height:3px}100%{height:14px}}
+#musicBar.paused .bar{animation-play-state:paused;height:5px}
+#musicBtn{background:none;border:none;color:var(--blush);cursor:pointer;font-size:13px;line-height:1;padding:2px}
+
+/* ── PHASES ── */
+.phase{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .7s ease}
+.phase.active{opacity:1;pointer-events:all}
+
+/* ══════════════════════════════
+   PHASE 1 — COUNTDOWN
+══════════════════════════════ */
+#phase1{z-index:200}
+.cw{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding:20px}
+.orb-wrap{position:relative;width:148px;height:148px;margin:0 auto}
+.orb-ring{position:absolute;inset:-14px;border-radius:50%;background:conic-gradient(from 0deg,var(--gold),var(--rose),var(--blush),var(--gold));animation:spin 3s linear infinite}
+.orb-inner{position:absolute;inset:3px;border-radius:50%;background:var(--bg)}
+.hero-photo{width:148px;height:148px;border-radius:50%;object-fit:cover;position:relative;z-index:2;border:2px solid rgba(232,23,93,.3)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rring{position:absolute;border-radius:50%;border:1.5px solid rgba(232,23,93,.45);animation:ripO 2.2s ease-out infinite;left:50%;top:50%;transform:translate(-50%,-50%)}
+.rr1{width:200px;height:200px;animation-delay:0s}
+.rr2{width:250px;height:250px;animation-delay:.6s}
+.rr3{width:300px;height:300px;animation-delay:1.2s}
+@keyframes ripO{0%{opacity:.7;transform:translate(-50%,-50%) scale(.85)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.1)}}
+.c-for{font-size:11px;color:var(--blush);font-style:italic;letter-spacing:2px;opacity:.75}
+.c-name{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:300;color:#fff;text-shadow:0 0 50px rgba(232,23,93,.7),0 0 100px rgba(232,23,93,.3);line-height:1}
+.c-sub{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--blush);letter-spacing:.5px}
+.c-num{font-family:'Cormorant Garamond',serif;font-size:110px;font-weight:700;line-height:1;background:linear-gradient(135deg,var(--gold),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:numP .55s ease}
+@keyframes numP{0%{transform:scale(1.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.prog-wrap{width:180px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.prog{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:2px;transition:width 1s linear}
+.c-hint{font-size:10px;color:rgba(255,194,212,.45);letter-spacing:2px;font-style:italic}
+
+/* Birthday flash */
+#flash{position:fixed;inset:0;z-index:300;background:radial-gradient(circle,#5a001e,#0e0008);display:flex;align-items:center;justify-content:center;font-size:80px;opacity:0;pointer-events:none;transition:opacity .15s}
+
+/* ══════════════════════════════
+   PHASE 2 — HERO TEXT
+══════════════════════════════ */
+#phase2{z-index:150}
+.hw{text-align:center;padding:20px}
+.hl{font-family:'Cormorant Garamond',serif;font-weight:300;color:#fff;opacity:0;transform:translateY(36px);transition:all 1s cubic-bezier(.16,1,.3,1)}
+.hl.vis{opacity:1;transform:translateY(0)}
+.hl-h{font-size:clamp(58px,17vw,115px);letter-spacing:10px;text-shadow:0 0 60px rgba(232,23,93,.5)}
+.hl-b{font-size:clamp(46px,14vw,96px);letter-spacing:4px;background:linear-gradient(135deg,var(--gold),var(--rose),var(--blush));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hl-j{font-size:clamp(52px,15vw,106px);letter-spacing:6px;text-shadow:0 0 40px rgba(240,180,41,.4)}
+.h-emoji{display:inline-block;animation:bounce 1s ease infinite alternate}
+@keyframes bounce{0%{transform:translateY(0)}100%{transform:translateY(-14px)}}
+
+/* ══════════════════════════════
+   PHASE 3 — FLIPBOOK
+══════════════════════════════ */
+#phase3{z-index:120;justify-content:flex-start;padding-top:16px;overflow-y:auto;overflow-x:hidden}
+#phase3.active{display:flex}
+.book-scene{width:100%;display:flex;flex-direction:column;align-items:center;padding:8px 0 70px}
+
+/* COVER */
+.book-cover{
+  width:min(330px,92vw);height:min(470px,72vh);
+  background:linear-gradient(135deg,#2a0010 0%,#180008 35%,#3d0020 65%,#180008 100%);
+  border-radius:4px 18px 18px 4px;
+  box-shadow:-8px 0 24px rgba(0,0,0,.85),10px 10px 50px rgba(0,0,0,.75),0 0 70px rgba(232,23,93,.06);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  position:relative;cursor:pointer;border-left:9px solid #080003;overflow:hidden;
+  transition:transform .45s ease,box-shadow .45s ease
+}
+.book-cover::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,rgba(255,255,255,.05) 0%,transparent 30%,rgba(255,255,255,.02) 60%,transparent 100%);pointer-events:none}
+.book-cover:hover{transform:rotateY(-5deg) translateX(6px)}
+.cover-img{width:118px;height:118px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 0 30px rgba(240,180,41,.35)}
+.cover-divider{width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.cover-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--gold);text-align:center;text-shadow:0 0 20px rgba(240,180,41,.5);letter-spacing:.5px;padding:0 18px}
+.cover-sub{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:var(--blush);opacity:.75}
+.cover-hint{font-size:9px;color:rgba(255,194,212,.4);letter-spacing:2px;font-style:italic;position:absolute;bottom:18px}
+.spine-lines{position:absolute;left:0;top:0;height:100%;width:9px;background:repeating-linear-gradient(180deg,rgba(255,255,255,.04) 0,rgba(255,255,255,.04) 1px,transparent 1px,transparent 14px)}
+.page-stack{position:absolute;right:-4px;top:5px;bottom:5px;width:7px;background:repeating-linear-gradient(180deg,#d4956a 0,#d4956a 2px,#c07840 2px,#c07840 4px)}
+
+/* PAGES - dark wine */
+.book-pages{width:min(330px,92vw);display:none;flex-direction:column}
+.book-page{
+  width:100%;min-height:min(470px,72vh);
+  background:linear-gradient(135deg,#2a0010 0%,#1e000c 40%,#320014 80%,#1e000c 100%);
+  border-radius:4px 18px 18px 4px;
+  padding:38px 26px 34px 34px;
+  position:relative;
+  box-shadow:-6px 0 22px rgba(0,0,0,.7),6px 6px 36px rgba(0,0,0,.5);
+  border-left:7px solid #0a0005;
+  display:none;flex-direction:column;gap:14px;
+  animation:pageRev .55s ease forwards
+}
+.book-page.ap{display:flex}
+@keyframes pageRev{0%{opacity:0;transform:rotateY(-18deg) translateX(-16px)}100%{opacity:1;transform:none}}
+.page-margin{position:absolute;left:44px;top:0;bottom:0;width:1px;background:rgba(232,23,93,.12)}
+.page-num{position:absolute;bottom:14px;right:22px;font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold);opacity:.6}
+.page-heading{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--rose);line-height:1.2;opacity:0;transition:opacity .7s ease;text-shadow:0 0 20px rgba(232,23,93,.3)}
+.page-heading.sh{opacity:1}
+.page-rule{width:50px;height:1px;background:linear-gradient(90deg,var(--rose),transparent);opacity:.5}
+.page-body{font-family:'DM Sans',sans-serif;font-size:13.5px;color:rgba(255,194,212,.88);line-height:1.85;font-weight:300;flex:1}
+.blink{display:inline-block;width:1.5px;height:1em;background:var(--rose);animation:bl .7s step-end infinite;vertical-align:text-bottom;margin-left:1px}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
+.page-controls{display:flex;justify-content:space-between;align-items:center;padding-top:12px;margin-top:auto}
+.pbtn{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--rose);background:none;border:1px solid rgba(232,23,93,.25);padding:8px 18px;border-radius:20px;cursor:pointer;letter-spacing:.5px;font-style:italic;transition:all .3s}
+.pbtn:hover,.pbtn:active{background:rgba(232,23,93,.12);border-color:var(--rose)}
+.pbtn:disabled{opacity:.25;cursor:not-allowed}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:11px}
+.checklist li{display:flex;align-items:flex-start;gap:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,194,212,.85);line-height:1.55;opacity:0;transform:translateX(-12px);transition:all .4s ease}
+.checklist li.show{opacity:1;transform:translateX(0)}
+.checklist li::before{content:'✦';color:var(--gold);font-size:9px;flex-shrink:0;margin-top:4px}
+
+/* BOOK END */
+.book-end{width:min(330px,92vw);min-height:min(470px,72vh);background:linear-gradient(135deg,#2a0010,#180008);border-radius:4px 18px 18px 4px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:40px 26px;box-shadow:-8px 0 24px rgba(0,0,0,.85),10px 10px 50px rgba(0,0,0,.75);border-left:9px solid #080003;animation:pageRev .7s ease forwards}
+.book-end.show{display:flex}
+.be-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--gold);text-shadow:0 0 30px rgba(240,180,41,.5)}
+.be-sub{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--blush);line-height:1.7;opacity:.85}
+.next-btn{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--rose);background:none;border:1px solid rgba(232,23,93,.4);padding:13px 30px;border-radius:30px;cursor:pointer;letter-spacing:1px;font-style:italic;transition:all .3s;margin-top:8px}
+.next-btn:hover{background:rgba(232,23,93,.12);box-shadow:0 0 24px rgba(232,23,93,.2)}
+
+/* ══════════════════════════════
+   PHASE 5 — REEL
+══════════════════════════════ */
+#phase5{z-index:130}
+.reel-card{background:rgba(10,0,6,.92);border:1px solid rgba(232,23,93,.3);border-radius:22px;padding:40px 30px;text-align:center;max-width:310px;width:92%;backdrop-filter:blur(24px);box-shadow:0 0 70px rgba(232,23,93,.08)}
+.rc-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#fff;margin-bottom:8px}
+.rc-sub{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--blush);opacity:.65;margin-bottom:28px;line-height:1.65}
+.rc-btn{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--rose);background:none;border:1px solid rgba(232,23,93,.45);padding:14px 30px;border-radius:30px;cursor:pointer;letter-spacing:1px;font-style:italic;transition:all .3s;width:100%}
+.rc-btn:hover{background:rgba(232,23,93,.1);box-shadow:0 0 30px rgba(232,23,93,.2)}
+.rot-hint{margin-top:14px;font-size:10px;color:rgba(255,194,212,.45);letter-spacing:1.5px;animation:fp 2s ease-in-out infinite}
+@keyframes fp{0%,100%{opacity:.4}50%{opacity:1}}
+.reel-ov{position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:400;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.reel-ov.show{display:flex}
+.reel-border{position:absolute;inset:6px;border:1px solid rgba(232,23,93,.5);border-radius:12px;box-shadow:0 0 50px rgba(232,23,93,.25);pointer-events:none;animation:rGlow 2s ease-in-out infinite alternate}
+@keyframes rGlow{0%{box-shadow:0 0 30px rgba(232,23,93,.2)}100%{box-shadow:0 0 70px rgba(232,23,93,.5)}}
+.reel-video{width:100%;max-width:95vw;max-height:82vh;border-radius:8px;background:#000}
+.reel-close{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,194,212,.45);background:none;border:none;cursor:pointer;letter-spacing:1px;padding:8px;position:relative;z-index:2}
+
+/* ══════════════════════════════
+   PHASE 6 — GALLERY
+══════════════════════════════ */
+#phase6{z-index:110;flex-direction:column;justify-content:flex-end;padding:0;overflow:hidden}
+#phase6.active{display:flex}
+.gal-label{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--blush);letter-spacing:3px;text-align:center;padding:14px 20px 6px;text-transform:uppercase;opacity:.55;font-style:italic;flex-shrink:0}
+.gal-slider-wrap{position:relative;flex:1;width:100%;overflow:hidden}
+.gal-slider{display:flex;height:100%;transition:transform .65s cubic-bezier(.16,1,.3,1)}
+.gal-card{min-width:100%;height:100%;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:40px 22px;flex-shrink:0}
+.gal-photo{position:absolute;inset:0;overflow:hidden}
+.gal-photo img{width:100%;height:100%;object-fit:cover}
+.gal-vignette{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,0,6,.92) 0%,rgba(10,0,6,.4) 40%,rgba(10,0,6,.12) 100%)}
+.gal-caption{position:relative;z-index:2;text-align:center}
+.gal-caption p{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,5.5vw,30px);font-style:italic;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.9);font-weight:300;line-height:1.35}
+.gal-caption small{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--blush);letter-spacing:2px;opacity:.5;display:block;margin-top:6px}
+.gal-next{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:rgba(232,23,93,.18);border:1px solid rgba(232,23,93,.4);color:var(--blush);border-radius:50%;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;font-size:18px;transition:all .3s;backdrop-filter:blur(10px)}
+.gal-next:hover{background:rgba(232,23,93,.35)}
+.gal-dots{position:absolute;bottom:14px;width:100%;display:flex;justify-content:center;gap:7px;z-index:10}
+.gdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s;cursor:pointer}
+.gdot.on{background:var(--rose);width:18px;border-radius:3px}
+.gal-final{min-width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;flex-shrink:0}
+.gf-heart{font-size:clamp(40px,12vw,68px);animation:hbeat 1.6s ease-in-out infinite}
+@keyframes hbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.gf-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6.5vw,42px);font-weight:300;color:#fff;line-height:1.35;text-shadow:0 0 40px rgba(232,23,93,.3);margin:14px 0 12px}
+.gf-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(13px,3.8vw,18px);font-style:italic;color:var(--blush);opacity:.65}
+
+/* FADE OVERLAY */
+.fade-ov{position:fixed;inset:0;background:var(--bg);z-index:500;opacity:0;pointer-events:none;transition:opacity .55s ease}
+.fade-ov.in{opacity:1;pointer-events:all}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="bg-grad"></div>
+<div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+<!-- ============================================
+     AUDIO — bairan.mp3 repo root mein rakh
+     ============================================ -->
+<audio id="bgAudio" loop>
+  <source src="bairan.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Music bar -->
+<div id="musicBar">
+  <div class="bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+  <span id="musicTitle">Bairan 🎵</span>
+  <button id="musicBtn" onclick="toggleMusic()">⏸</button>
+</div>
+
+<div id="flash">🎂</div>
+<div class="fade-ov" id="fadeOv"></div>
+
+<!-- ══════════════════════════════
+     PHASE 1 — COUNTDOWN
+══════════════════════════════ -->
+<div class="phase active" id="phase1">
+  <div class="cw">
+    <div style="position:relative;display:inline-block">
+      <div class="rring rr1"></div>
+      <div class="rring rr2"></div>
+      <div class="rring rr3"></div>
+      <div class="orb-wrap">
+        <div class="orb-ring"></div>
+        <div class="orb-inner"></div>
+        <!-- ============================================
+             HERO PHOTO — photos/hero.jpg
+             ============================================ -->
+        <img class="hero-photo" src="photos/hero.jpg" alt="Janvi">
+      </div>
+    </div>
+    <div class="c-for">Something special is opening for</div>
+    <div class="c-name">Janvi</div>
+    <div class="c-sub">for Dear Optimus 🎀</div>
+    <div class="c-num" id="cNum">5</div>
+    <div class="prog-wrap"><div class="prog" id="prog" style="width:100%"></div></div>
+    <div class="c-hint">your surprise awaits ✨</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PHASE 2 — HERO TEXT
+══════════════════════════════ -->
+<div class="phase" id="phase2">
+  <div class="hw">
+    <div class="hl hl-h" id="hl1">HAPPY</div>
+    <div class="hl hl-b" id="hl2">BIRTHDAY</div>
+    <div class="hl hl-j" id="hl3">JANVI <span class="h-emoji">🎂</span> 🎀</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PHASE 3 — FLIPBOOK
+══════════════════════════════ -->
+<div class="phase" id="phase3">
+<div class="book-scene" id="bookScene">
+
+  <!-- COVER -->
+  <div class="book-cover" id="bookCover" onclick="openBook()">
+    <div class="spine-lines"></div>
+    <div class="page-stack"></div>
+    <!-- ============================================
+         COVER PHOTO — photos/hero.jpg (same as hero)
+         ============================================ -->
+    <img class="cover-img" src="photos/hero.jpg" alt="Janvi">
+    <div class="cover-divider"></div>
+    <div class="cover-title">Something Special For You</div>
+    <div class="cover-sub">for Dear Optimus 🎀</div>
+    <div class="cover-hint">tap to open your surprise ✨</div>
+  </div>
+
+  <!-- BOOK PAGES -->
+  <div class="book-pages" id="bookPages">
+
+    <!-- Page 1 -->
+    <div class="book-page" id="pg0">
+      <div class="page-margin"></div>
+      <div class="page-heading" id="ph0">More Than Just A Friend</div>
+      <div class="page-rule"></div>
+      <div class="page-body" id="pb0"></div>
+      <div class="page-controls">
+        <button class="pbtn" onclick="prevPage()" disabled id="prev0">← back</button>
+        <button class="pbtn" onclick="nextPage()" disabled id="next0">next →</button>
+      </div>
+      <div class="page-num">1 / 6</div>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="book-page" id="pg1">
+      <div class="page-margin"></div>
+      <div class="page-heading" id="ph1">The Little Things About You</div>
+      <div class="page-rule"></div>
+      <div class="page-body" id="pb1"></div>
+      <div class="page-controls">
+        <button class="pbtn" onclick="prevPage()" id="prev1">← back</button>
+        <button class="pbtn" onclick="nextPage()" disabled id="next1">next →</button>
+      </div>
+      <div class="page-num">2 / 6</div>
+    </div>
+
+    <!-- Page 3 -->
+    <div class="book-page" id="pg2">
+      <div class="page-margin"></div>
+      <div class="page-heading" id="ph2">10 January, 8:47 PM</div>
+      <div class="page-rule"></div>
+      <div class="page-body" id="pb2"></div>
+      <div class="page-controls">
+        <button class="pbtn" onclick="prevPage()" id="prev2">← back</button>
+        <button class="pbtn" onclick="nextPage()" disabled id="next2">next →</button>
+      </div>
+      <div class="page-num">3 / 6</div>
+    </div>
+
+    <!-- Page 4 -->
+    <div class="book-page" id="pg3">
+      <div class="page-margin"></div>
+      <div class="page-heading" id="ph3">What I Truly Wish For You</div>
+      <div class="page-rule"></div>
+      <div class="page-body" id="pb3"></div>
+      <div class="page-controls">
+        <button class="pbtn" onclick="prevPage()" id="prev3">← back</button>
+        <button class="pbtn" onclick="nextPage()" disabled id="next3">next →</button>
+      </div>
+      <div class="page-num">4 / 6</div>
+    </div>
+
+    <!-- Page 5 -->
+    <div class="book-page" id="pg4">
+      <div class="page-margin"></div>
+      <div class="page-heading" id="ph4">What You Do To My Days</div>
+      <div class="page-rule"></div>
+      <div class="page-body" id="pb4"></div>
+      <div class="page-controls">
+        <button class="pbtn" onclick="prevPage()" id="prev4">← back</button>
+        <button class="pbtn" onclick="nextPage()" disabled id="next4">next →</button>
+      </div>
+      <div class="page-num">5 / 6</div>
+    </div>
+
+    <!-- Page 6 — Wishlist -->
+    <div class="book-page" id="pg5">
+      <div class="page-margin"></div>
+      <div class="page-heading" id="ph5">My Birthday Wishlist For You</div>
+      <div class="page-rule"></div>
+      <div class="page-body"><ul class="checklist" id="wishlist"></ul></div>
+      <div class="page-controls">
+        <button class="pbtn" onclick="prevPage()" id="prev5">← back</button>
+        <button class="pbtn" onclick="closeBook()" disabled id="next5">close ✦</button>
+      </div>
+      <div class="page-num">6 / 6</div>
+    </div>
+
+  </div><!-- /bookPages -->
+
+  <!-- BOOK END SCREEN -->
+  <div class="book-end" id="bookEnd">
+    <div style="font-size:38px">📖✨</div>
+    <div class="be-title">The End</div>
+    <div class="be-sub">But Never The Feeling<br><br>Happiest Birthday Janvi 🎀🎂</div>
+    <button class="next-btn" onclick="goPhase(5)">One more surprise →</button>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════
+     PHASE 5 — REEL SURPRISE
+══════════════════════════════ -->
+<div class="phase" id="phase5">
+  <div class="reel-card">
+    <div class="rc-title">What You Mean In My Life 💫</div>
+    <div class="rc-sub">One last thing — just for you.<br>A little memory, saved forever.</div>
+    <button class="rc-btn" onclick="unlockReel()">tap to unlock one more surprise</button>
+    <div class="rot-hint" id="rotHint" style="display:none">↻ Rotate your phone for the surprise ▶</div>
+  </div>
+</div>
+
+<!-- REEL OVERLAY -->
+<div class="reel-ov" id="reelOv">
+  <div class="reel-border"></div>
+  <!-- ============================================
+       REEL VIDEO — reel.mp4 repo root mein rakh
+       ============================================ -->
+  <video id="reelVid" class="reel-video" playsinline controls>
+    <source src="reel.mp4" type="video/mp4">
+  </video>
+  <button class="reel-close" onclick="closeReel()">✕ close & continue to gallery</button>
+</div>
+
+<!-- ══════════════════════════════
+     PHASE 6 — GALLERY
+══════════════════════════════ -->
+<div class="phase" id="phase6">
+  <div class="gal-label">Memories with Janvi 🌸</div>
+  <div class="gal-slider-wrap">
+    <div class="gal-slider" id="galSlider">
+
+      <!-- ============================================
+           GALLERY PHOTOS — photos/g1.jpg se g9.jpg
+           Apni 9 photos upload kar in names se
+           ============================================ -->
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g1.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>the smile that fixes bad days</p><small>📸 memory 01</small></div>
+      </div>
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g2.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>glowing like she always does</p><small>📸 memory 02</small></div>
+      </div>
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g3.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>my favorite human in one frame</p><small>📸 memory 03</small></div>
+      </div>
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g4.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>proof that some people become home</p><small>📸 memory 04</small></div>
+      </div>
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g5.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>this one stole every spotlight</p><small>📸 memory 05</small></div>
+      </div>
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g6.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>even in black &amp; white, she shines</p><small>📸 memory 06</small></div>
+      </div>
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g7.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>the chaos I never want to lose</p><small>📸 memory 07</small></div>
+      </div>
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g8.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>every version of her — breathtaking</p><small>📸 memory 08</small></div>
+      </div>
+
+      <div class="gal-card">
+        <div class="gal-photo"><img src="photos/g9.jpg" alt=""></div>
+        <div class="gal-vignette"></div>
+        <div class="gal-caption"><p>the one I always look forward to</p><small>📸 memory 09</small></div>
+      </div>
+
+      <!-- Final slide — no photo needed -->
+      <div class="gal-final">
+        <div class="gf-heart">🤍</div>
+        <div class="gf-title">Thank You For Existing In My Story</div>
+        <div class="gf-sub">— always your comfort chaos partner</div>
+      </div>
+
+    </div><!-- /galSlider -->
+
+    <button class="gal-next" id="galNext" onclick="galNext()">›</button>
+    <div class="gal-dots" id="galDots"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// CANVAS — STARS + TEXT RAIN
+// ══════════════════════════════════════════════
+const cv = document.getElementById('bgCanvas');
+const ctx = cv.getContext('2d');
+let stars = [], rain = [], rainOn = false;
+
+function resize() {
+  cv.width = innerWidth;
+  cv.height = innerHeight;
+  initStars();
+}
+
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 160; i++) {
+    stars.push({
+      x: Math.random() * cv.width,
+      y: Math.random() * cv.height,
+      r: Math.random() * 1.4 + 0.3,
+      ph: Math.random() * Math.PI * 2,
+      sp: Math.random() * 0.018 + 0.004
+    });
+  }
+}
+
+const rwords = ['JANVI', 'OPTIMUS', 'HAPPY', 'BIRTHDAY', '🎂', '✨', '💖', '🌸'];
+function initRain() {
+  rain = [];
+  for (let i = 0; i < 42; i++) {
+    rain.push({
+      x: Math.random() * cv.width,
+      y: Math.random() * cv.height - cv.height,
+      w: rwords[Math.floor(Math.random() * rwords.length)],
+      sp: Math.random() * 1.1 + 0.4,
+      op: Math.random() * 0.35 + 0.05,
+      sz: Math.floor(Math.random() * 7) + 9
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  // stars
+  stars.forEach(s => {
+    s.ph += s.sp;
+    const a = (0.2 + Math.sin(s.ph) * 0.8) * Math.max(0, Math.min(1, s.r * 0.7));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,235,248,${a})`;
+    ctx.fill();
+  });
+  // text rain
+  if (rainOn) {
+    ctx.save();
+    rain.forEach(d => {
+      d.y += d.sp;
+      if (d.y > cv.height + 40) { d.y = -40; d.x = Math.random() * cv.width; }
+      ctx.font = `${d.sz}px DM Sans`;
+      ctx.fillStyle = `rgba(255,180,210,${d.op})`;
+      ctx.fillText(d.w, d.x, d.y);
+    });
+    ctx.restore();
+  }
+  requestAnimationFrame(draw);
+}
+
+addEventListener('resize', resize);
+resize();
+initRain();
+draw();
+
+// ══════════════════════════════════════════════
+// AUDIO
+// ══════════════════════════════════════════════
+const aud = document.getElementById('bgAudio');
+aud.volume = 0.38;
+let mPlay = false;
+
+function startMusic() {
+  aud.play().then(() => {
+    mPlay = true;
+    document.getElementById('musicBar').classList.add('visible');
+    document.getElementById('musicBtn').textContent = '⏸';
+  }).catch(() => {});
+}
+
+function toggleMusic() {
+  if (mPlay) {
+    aud.pause(); mPlay = false;
+    document.getElementById('musicBtn').textContent = '▶';
+    document.getElementById('musicBar').classList.add('paused');
+  } else {
+    aud.play(); mPlay = true;
+    document.getElementById('musicBtn').textContent = '⏸';
+    document.getElementById('musicBar').classList.remove('paused');
+  }
+}
+
+// ══════════════════════════════════════════════
+// PHASE MANAGEMENT
+// ══════════════════════════════════════════════
+let curPhase = 1;
+const phMap = { 1: 'phase1', 2: 'phase2', 3: 'phase3', 5: 'phase5', 6: 'phase6' };
+
+function showPhase(n) {
+  Object.values(phMap).forEach(id => {
+    document.getElementById(id).classList.remove('active');
+  });
+  document.getElementById(phMap[n]).classList.add('active');
+  curPhase = n;
+}
+
+function goPhase(n, delay = 0) {
+  const ov = document.getElementById('fadeOv');
+  setTimeout(() => {
+    ov.classList.add('in');
+    setTimeout(() => {
+      showPhase(n);
+      ov.classList.remove('in');
+      if (n === 2) heroStart();
+      if (n === 6) galInit();
+    }, 550);
+  }, delay);
+}
+
+// ══════════════════════════════════════════════
+// PHASE 1 — COUNTDOWN
+// ══════════════════════════════════════════════
+let cVal = 5;
+const cEl = document.getElementById('cNum');
+const pEl = document.getElementById('prog');
+
+function startCd() {
+  const iv = setInterval(() => {
+    cVal--;
+    if (cVal <= 0) {
+      clearInterval(iv);
+      doFlash();
+    } else {
+      cEl.style.animation = 'none';
+      void cEl.offsetWidth;
+      cEl.style.animation = 'numP .55s ease';
+      cEl.textContent = cVal;
+      pEl.style.width = (cVal / 5 * 100) + '%';
+    }
+  }, 1000);
+}
+
+function doFlash() {
+  const fl = document.getElementById('flash');
+  fl.style.opacity = '1';
+  rainOn = true;
+  startMusic();
+  setTimeout(() => {
+    fl.style.opacity = '0';
+    goPhase(2);
+  }, 750);
+}
+
+setTimeout(startCd, 700);
+
+// ══════════════════════════════════════════════
+// PHASE 2 — HERO TEXT
+// ══════════════════════════════════════════════
+function heroStart() {
+  ['hl1', 'hl2', 'hl3'].forEach((id, i) => {
+    setTimeout(() => document.getElementById(id).classList.add('vis'), i * 700 + 200);
+  });
+  setTimeout(() => goPhase(3), 3900);
+}
+
+// ══════════════════════════════════════════════
+// PHASE 3 — FLIPBOOK
+// ══════════════════════════════════════════════
+const pageTexts = [
+  "Dekh, mujhe nahi pata tha ki ek 'Best friend' itni important ho sakti hai. Tu sirf dost nahi hai — tu woh insaan hai jiske saath main comfortable hoon, jiske saath sab kuch easy lagta hai. Me sab kuch share kar sakta hu. 🤍",
+  "Teri expression. Seriously — teri aankhein pehle baat karti hain. Tera smile, woh wala jo dusro ke face par smile la de. The way you fix your hair while smiling somehow makes the whole moment feel still.",
+  "10 January. 8:47 PM. You know it. Woh moment sirf ek moment nahi tha — woh ek ehsaas tha jo main kabhi bhool nahi sakta. Kuch cheezein hoti hain jinhe words mein nahi daal sakte. Woh wali cheez usi category mein hai. 🌙",
+  "I want you to always feel how special you are. I want you to feel appreciated for the way you make people smile, support them, and bring warmth everywhere. No matter what happens — I want you to feel that you are never alone, because I'll always be there cheering for you. Most importantly, I want you to feel proud of the amazing person you are becoming every single day. 💫",
+  "Sometimes I act normal, but honestly I always look forward to talking to you. ✨ Your messages, your energy, and just your presence somehow make my day lighter, happier, and better every single time. 💛 One of the best parts of my life is having a friend like you. I may not say it often — but you have become someone I truly value, and I'm genuinely really grateful for you. 🤍"
+];
+
+const wishes = [
+  'infinite happiness',
+  'no self-doubt',
+  'more crazy memories',
+  'success in everything',
+  'forever beautiful smile',
+  'stay this amazing always ✦'
+];
+
+let curPg = -1, typing = false;
+
+function openBook() {
+  const cov = document.getElementById('bookCover');
+  const pgs = document.getElementById('bookPages');
+  cov.style.transition = 'all .55s ease';
+  cov.style.opacity = '0';
+  cov.style.transform = 'rotateY(-22deg) translateX(-22px)';
+  setTimeout(() => {
+    cov.style.display = 'none';
+    pgs.style.display = 'flex';
+    curPg = 0;
+    showPg(0);
+  }, 550);
+}
+
+function showPg(i) {
+  document.querySelectorAll('.book-page').forEach(p => p.classList.remove('ap'));
+  const pg = document.getElementById('pg' + i);
+  if (!pg) return;
+  pg.classList.add('ap');
+  const hEl = document.getElementById('ph' + i);
+  hEl.classList.remove('sh');
+  const bEl = document.getElementById('pb' + i);
+  if (i < 5) bEl.innerHTML = '';
+  document.getElementById('next' + i).disabled = true;
+  setTimeout(() => {
+    hEl.classList.add('sh');
+    setTimeout(() => {
+      if (i === 5) animWish(document.getElementById('next' + i));
+      else typeIt(bEl, pageTexts[i], document.getElementById('next' + i));
+    }, 650);
+  }, 280);
+  document.getElementById('bookScene').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function typeIt(el, txt, btn) {
+  let i = 0;
+  typing = true;
+  el.innerHTML = '<span class="blink"></span>';
+  const cur = el.querySelector('.blink');
+  (function t() {
+    if (i < txt.length) {
+      cur.insertAdjacentText('beforebegin', txt[i++]);
+      setTimeout(t, 26);
+    } else {
+      cur.remove();
+      typing = false;
+      btn.disabled = false;
+    }
+  })();
+}
+
+function animWish(btn) {
+  const list = document.getElementById('wishlist');
+  list.innerHTML = '';
+  wishes.forEach((w, i) => {
+    setTimeout(() => {
+      const li = document.createElement('li');
+      li.textContent = w;
+      list.appendChild(li);
+      setTimeout(() => li.classList.add('show'), 30);
+      if (i === wishes.length - 1) setTimeout(() => btn.disabled = false, 500);
+    }, i * 340);
+  });
+}
+
+function nextPage() {
+  if (curPg < 5) { curPg++; showPg(curPg); }
+}
+
+function prevPage() {
+  if (curPg > 0) { curPg--; showPg(curPg); }
+  else if (curPg === 0) { reopenCover(); }
+}
+
+function reopenCover() {
+  document.querySelectorAll('.book-page').forEach(p => p.classList.remove('ap'));
+  document.getElementById('bookPages').style.display = 'none';
+  const cov = document.getElementById('bookCover');
+  cov.style.display = 'flex';
+  cov.style.opacity = '1';
+  cov.style.transform = '';
+  curPg = -1;
+}
+
+function closeBook() {
+  document.querySelectorAll('.book-page').forEach(p => p.classList.remove('ap'));
+  document.getElementById('bookPages').style.display = 'none';
+  document.getElementById('bookEnd').classList.add('show');
+}
+
+// Touch swipe for book
+let bx = 0;
+document.getElementById('phase3').addEventListener('touchstart', e => bx = e.touches[0].clientX, { passive: true });
+document.getElementById('phase3').addEventListener('touchend', e => {
+  const dx = bx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 60 && curPg >= 0 && !typing) {
+    dx > 0 ? nextPage() : prevPage();
+  }
+}, { passive: true });
+
+// ══════════════════════════════════════════════
+// PHASE 5 — REEL
+// ══════════════════════════════════════════════
+let reelOn = false;
+
+function unlockReel() {
+  reelOn = true;
+  document.getElementById('rotHint').style.display = 'block';
+  if (innerWidth > innerHeight) openReel();
+}
+
+addEventListener('resize', () => {
+  if (reelOn && innerWidth > innerHeight && curPhase === 5) openReel();
+});
+
+function openReel() {
+  document.getElementById('reelOv').classList.add('show');
+  if (mPlay) { aud.pause(); }
+  const v = document.getElementById('reelVid');
+  if (v) {
+    v.play().catch(() => {});
+    v.onended = closeReel;
+  }
+}
+
+function closeReel() {
+  document.getElementById('reelOv').classList.remove('show');
+  const v = document.getElementById('reelVid');
+  if (v) v.pause();
+  if (!mPlay && aud.src) {
+    aud.play(); mPlay = true;
+    document.getElementById('musicBtn').textContent = '⏸';
+    document.getElementById('musicBar').classList.remove('paused');
+  }
+  goPhase(6);
+}
+
+// ══════════════════════════════════════════════
+// PHASE 6 — GALLERY
+// ══════════════════════════════════════════════
+let gIdx = 0, gTotal = 0;
+
+function galInit() {
+  const sl = document.getElementById('galSlider');
+  gTotal = sl.children.length;
+  gIdx = 0;
+  updateGal();
+  buildDots();
+}
+
+function buildDots() {
+  const dn = document.getElementById('galDots');
+  dn.innerHTML = '';
+  for (let i = 0; i < gTotal; i++) {
+    const d = document.createElement('div');
+    d.className = 'gdot' + (i === 0 ? ' on' : '');
+    d.onclick = (j => () => galGo(j))(i);
+    dn.appendChild(d);
+  }
+}
+
+function galNext() {
+  if (gIdx < gTotal - 1) { gIdx++; updateGal(); }
+  if (gIdx === gTotal - 1) {
+    const nb = document.getElementById('galNext');
+    nb.style.opacity = '0';
+    nb.style.pointerEvents = 'none';
+  }
+}
+
+function galGo(i) { gIdx = i; updateGal(); }
+
+function updateGal() {
+  document.getElementById('galSlider').style.transform = `translateX(-${gIdx * 100}%)`;
+  document.querySelectorAll('.gdot').forEach((d, i) => d.classList.toggle('on', i === gIdx));
+}
+
+// Touch swipe for gallery
+let tx = 0;
+document.getElementById('galSlider').addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
+document.getElementById('galSlider').addEventListener('touchend', e => {
+  const dx = tx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 40) { dx > 0 ? galNext() : gIdx > 0 && galGo(gIdx - 1); }
+}, { passive: true });
+</script>
+</body>
+</html>
